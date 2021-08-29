@@ -10,9 +10,8 @@ app = Flask(__name__)
 # GET requests will be blocked
 @app.route('/recommend', methods=['POST'])
 def recommendations():
-    print(request)
     request_data = request.get_json()
-    print(request_data)
+
     foodType = ""
     carbTypeString = ""
     proteinTypeString = ""
@@ -28,7 +27,6 @@ def recommendations():
         for protein in request_data['proteinType']:
             proteinTypeString += protein + " "
 
-    print(foodType + carbTypeString + proteinTypeString)
     top_stalls_list = model2.recommendation(foodType, carbTypeString, proteinTypeString)
     topstalls = []
     for stall in top_stalls_list:
