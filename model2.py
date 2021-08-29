@@ -96,7 +96,7 @@ def recommendation(foodtype_input, carbtype_input, proteintype_input):
         protein_input[7] = 1
 
     pref_input = np.hstack([food_input, carb_input, protein_input])
-    print(pref_input)
+
     info = np.vstack([all_data, pref_input])
 
     newdf = pd.DataFrame(info, columns=food_type + carb + protein)
@@ -117,7 +117,6 @@ def recommendation(foodtype_input, carbtype_input, proteintype_input):
     similar_score = list(enumerate(listing_similarity_df.values[-1, :-1]))  # excludes itself hence -1:
 
     output = sorted(similar_score, key=lambda x: x[1], reverse=True)
-    print(output)
 
     output_array = []
     output_1 = (output[0])[0]
@@ -126,10 +125,9 @@ def recommendation(foodtype_input, carbtype_input, proteintype_input):
     output_array.append(output_1)
     output_array.append(output_2)
     output_array.append(output_3)
-    print(output_array)
 
     top_stalls_list = []
     for x in output_array:
         top_stalls_list.append(df2.loc[x-1])
-    print(top_stalls_list)
+
     return top_stalls_list
