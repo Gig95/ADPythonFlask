@@ -13,9 +13,6 @@ def recommendation(foodtype_input, carbtype_input, proteintype_input):
     dbConnection.close()
     df2 = df2.dropna(subset=['food_type', 'carb_type', 'protein_type'])
 
-
-    df2 = df2.dropna(axis=0, subset=['food_type', 'carb_type', 'protein_type'])
-
     food_type = ['fusion', 'singaporean', 'chinese', 'indian', 'japanese', 'western', 'malay', 'sea']
     ft_map = {k: v for v, k in enumerate(food_type)}
     carb = ['rice', 'noodles', 'potato', 'others', 'none']
