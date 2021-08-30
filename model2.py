@@ -1,16 +1,18 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, null
 import mysql.connector
 import pandas as pd
 
 def recommendation(foodtype_input, carbtype_input, proteintype_input):
-    sqlEngine = create_engine('mysql+mysqlconnector://root:Shellio123!@localhost/mydb', pool_recycle=3600)
+    sqlEngine = create_engine('mysql+mysqlconnector://root:Acy071093@localhost/mydb', pool_recycle=3600)
     dbConnection = sqlEngine.connect()
     df2 = pd.read_sql("select * from hawker_listing", dbConnection);
     # pd.set_option('display.expand_frame_repr', False)
     dbConnection.close()
+    df2 = df2.dropna(subset=['food_type', 'carb_type', 'protein_type'])
+
 
     df2 = df2.dropna(axis=0, subset=['food_type', 'carb_type', 'protein_type'])
 
@@ -29,6 +31,7 @@ def recommendation(foodtype_input, carbtype_input, proteintype_input):
         return tuple(list)
 
     for i, x in df2.iterrows():
+
         ft = x[3]  # food type
         cb = convert(x[2].split())  # carb
         pt = convert(x[7].split())  # protein
